@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Header } from '@/core/components/Header';
 
 export function NewsDetailScreen() {
   return (
-    <View>
-      <Text>News Detail Screen</Text>
-    </View>
+    <SafeAreaView>
+      <Header showBackButton={true} />
+    </SafeAreaView>
   );
 }

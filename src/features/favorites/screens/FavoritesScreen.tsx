@@ -1,9 +1,11 @@
-import { Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Header } from '@/core/components/Header';
+import { routes } from '@/navigation/routes';
 
 export function FavoritesScreen() {
   return (
-    <View>
-      <Text>Favorites Screen</Text>
-    </View>
+    <SafeAreaView>
+      <Header title={routes.favorites.title} />
+    </SafeAreaView>
   );
 }

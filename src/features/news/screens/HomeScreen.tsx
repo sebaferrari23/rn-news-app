@@ -1,9 +1,11 @@
-import { Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Header } from '@/core/components/Header';
+import { routes } from '@/navigation/routes';
 
 export function HomeScreen() {
   return (
-    <View>
-      <Text>Home Screen</Text>
-    </View>
+    <SafeAreaView>
+      <Header title={routes.home.title} />
+    </SafeAreaView>
   );
 }
