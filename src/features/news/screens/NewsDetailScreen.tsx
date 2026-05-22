@@ -1,7 +1,6 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Image,
   ScrollView,
   Share,
@@ -16,14 +15,18 @@ import { Header, HeaderAction } from '@/core/components/Header';
 import { colors } from '@/core/theme/colors';
 import { fontFamilies, fontSizes } from '@/core/theme/typography';
 import { spacing } from '@/core/theme/spacing';
-import { useNewsItem } from '../hooks/useNewsItem';
+import { useFavoritesStore } from '@/features/favorites/store/useFavoritesStore';
+import { useNewsItem } from '../hooks';
 
 type Props = RootStackScreenProps<typeof rootStackRouteNames.newsDetail>;
 
 export function NewsDetailScreen({ route }: Props) {
   const { newsId } = route.params;
   const { data: news, isLoading } = useNewsItem(newsId);
-  const [isFav, setIsFav] = useState(false);
+  const isFav = useFavoritesStore((s) =>
+    s.favorites.some((item) => item.id === newsId),
+  );
+  const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
 
   const onShare = useCallback(async () => {
     if (!news) return;
@@ -41,14 +44,14 @@ export function NewsDetailScreen({ route }: Props) {
     () => [
       {
         icon: isFav ? 'heart' : 'heart-outline',
-        onPress: () => setIsFav((prev) => !prev),
+        onPress: () => news && toggleFavorite(news),
       },
       {
         icon: 'share-social-outline',
         onPress: onShare,
       },
     ],
-    [isFav, onShare],
+    [isFav, onShare, news, toggleFavorite],
   );
 
   return (

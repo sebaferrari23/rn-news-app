@@ -13,7 +13,7 @@ import { spacing } from '@/core/theme/spacing';
 
 interface Props {
   data: News[] | undefined;
-  isLoading: boolean;
+  isLoading?: boolean;
   onPressItem: (newsId: number) => void;
 }
 
