@@ -17,7 +17,7 @@ export const NewsCard = memo(({ news, onPress }: Props) => {
       onPress={onPress}
       activeOpacity={0.6}
     >
-      <Image source={{ uri: news.image }} style={styles.image} />
+      <Image source={{ uri: news.thumbnail }} style={styles.image} />
       <View style={styles.content}>
         <Text style={styles.title} numberOfLines={2}>
           {news.title}

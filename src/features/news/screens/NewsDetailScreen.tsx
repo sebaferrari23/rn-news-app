@@ -1,10 +1,107 @@
+import { useCallback, useMemo, useState } from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  ScrollView,
+  Share,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Header } from '@/core/components/Header';
+import { RootStackScreenProps } from '@/navigation/types';
+import { rootStackRouteNames } from '@/navigation/routeNames';
+import { Header, HeaderAction } from '@/core/components/Header';
+import { colors } from '@/core/theme/colors';
+import { fontFamilies, fontSizes } from '@/core/theme/typography';
+import { spacing } from '@/core/theme/spacing';
+import { useNewsItem } from '../hooks/useNewsItem';
 
-export function NewsDetailScreen() {
+type Props = RootStackScreenProps<typeof rootStackRouteNames.newsDetail>;
+
+export function NewsDetailScreen({ route }: Props) {
+  const { newsId } = route.params;
+  const { data: news, isLoading } = useNewsItem(newsId);
+  const [isFav, setIsFav] = useState(false);
+
+  const onShare = useCallback(async () => {
+    if (!news) return;
+    try {
+      await Share.share({
+        title: news.title,
+        message: `${news.title}\n\n${news.url}`,
+      });
+    } catch (error) {
+      console.warn(error);
+    }
+  }, [news]);
+
+  const headerActions: HeaderAction[] = useMemo(
+    () => [
+      {
+        icon: isFav ? 'heart' : 'heart-outline',
+        onPress: () => setIsFav((prev) => !prev),
+      },
+      {
+        icon: 'share-social-outline',
+        onPress: onShare,
+      },
+    ],
+    [isFav, onShare],
+  );
+
   return (
-    <SafeAreaView>
-      <Header showBackButton={true} />
+    <SafeAreaView style={styles.container}>
+      <Header showBackButton actions={headerActions} />
+      {isLoading ? (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      ) : news ? (
+        <ScrollView
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <Image source={{ uri: news.image }} style={styles.image} />
+          <Text style={styles.title}>{news.title}</Text>
+          <Text style={styles.text}>{news.content}</Text>
+        </ScrollView>
+      ) : null}
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  content: {
+    paddingHorizontal: spacing.md,
+  },
+  image: {
+    width: '100%',
+    height: 240,
+    borderRadius: 16,
+    marginBottom: spacing.md,
+  },
+  title: {
+    fontSize: fontSizes.xl,
+    fontFamily: fontFamilies.bold,
+    color: colors.title,
+    lineHeight: 32,
+    marginBottom: spacing.sm,
+  },
+  text: {
+    fontSize: fontSizes.md,
+    fontFamily: fontFamilies.regular,
+    color: colors.text,
+    lineHeight: 28,
+  },
+});

@@ -3,12 +3,17 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header, HeaderAction } from '@/core/components/Header';
 import { colors } from '@/core/theme/colors';
+import { routes } from '@/navigation/routes';
+import { MainTabScreenProps } from '@/navigation/types';
+import { mainTabRouteNames } from '@/navigation/routeNames';
 import { SearchBar } from '../components/SearchBar';
 import { NewsList } from '../components/NewsList';
 import { useNews } from '../hooks/useNews';
 import { useNewsSearch } from '../hooks/useNewsSearch';
 
-export function HomeScreen() {
+type Props = MainTabScreenProps<typeof mainTabRouteNames.favorites>;
+
+export function HomeScreen({ navigation }: Props) {
   const { data, isLoading } = useNews();
   const { searchQuery, setSearchQuery, filteredNews } = useNewsSearch(data);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -28,6 +33,13 @@ export function HomeScreen() {
     [isSearchOpen, toggleSearch],
   );
 
+  const navigateToNewsDetail = useCallback(
+    (newsId: number) => {
+      navigation.navigate(routes.newsDetail.name, { newsId });
+    },
+    [navigation],
+  );
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <Header title="Discover" actions={headerActions} />
@@ -41,7 +53,7 @@ export function HomeScreen() {
       <NewsList
         data={filteredNews}
         isLoading={isLoading}
-        onPressItem={() => {}}
+        onPressItem={navigateToNewsDetail}
       />
     </SafeAreaView>
   );
