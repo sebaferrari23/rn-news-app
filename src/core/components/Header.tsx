@@ -1,9 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { colors } from '@/core/theme/colors';
-import { spacing } from '@/core/theme/spacing';
-import { fontFamilies, fontSizes } from '@/core/theme/typography';
+import { colors, fontFamilies, fontSizes, spacing } from '../theme';
 
 export interface HeaderAction {
   icon: keyof typeof Ionicons.glyphMap;

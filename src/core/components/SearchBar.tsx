@@ -1,8 +1,6 @@
 import { StyleSheet, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '@/core/theme/colors';
-import { fontFamilies, fontSizes } from '@/core/theme/typography';
-import { spacing } from '@/core/theme/spacing';
+import { colors, fontFamilies, fontSizes, spacing } from '../theme';
 
 interface Props {
   value: string;
@@ -10,7 +8,11 @@ interface Props {
   placeholder?: string;
 }
 
-export function SearchBar({ value, onChangeText, placeholder }: Props) {
+export function SearchBar({
+  value,
+  onChangeText,
+  placeholder = 'Search ...',
+}: Props) {
   return (
     <View style={styles.container}>
       <Ionicons name="search-outline" size={18} color={colors.text} />

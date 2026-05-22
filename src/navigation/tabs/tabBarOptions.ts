@@ -1,5 +1,4 @@
-import { fontFamilies, fontSizes } from '@/core/theme/typography';
-import { colors } from '@/core/theme/colors';
+import { colors, fontFamilies, fontSizes } from '@/core/theme';
 
 export const tabBarScreenOptions = {
   headerShown: false,

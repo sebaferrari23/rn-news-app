@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from '@/core/components/Header';
-import { colors } from '@/core/theme/colors';
+import { colors } from '@/core/theme';
 import { routes } from '@/navigation/routes';
 import { NewsList } from '@/features/news/components/NewsList';
 import { useNavigateToNewsDetail } from '@/features/news/hooks';

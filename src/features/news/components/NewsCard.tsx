@@ -1,8 +1,6 @@
 import { memo } from 'react';
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { fontFamilies, fontSizes } from '@/core/theme/typography';
-import { colors } from '@/core/theme/colors';
-import { spacing } from '@/core/theme/spacing';
+import { colors, spacing, fontFamilies, fontSizes } from '@/core/theme';
 import { News } from '../types/news.types';
 
 interface Props {

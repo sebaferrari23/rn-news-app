@@ -1,9 +1,10 @@
 import { useCallback, useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { routes } from '@/navigation/routes';
 import { Header, HeaderAction } from '@/core/components/Header';
-import { colors } from '@/core/theme/colors';
-import { SearchBar } from '../components/SearchBar';
+import { colors } from '@/core/theme';
+import { SearchBar } from '@/core/components/SearchBar';
 import { NewsList } from '../components/NewsList';
 import { useNavigateToNewsDetail, useNews, useNewsSearch } from '../hooks';
 
@@ -30,7 +31,7 @@ export function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <Header title="Discover" actions={headerActions} />
+      <Header title={routes.home.title} actions={headerActions} />
       {isSearchOpen && (
         <SearchBar
           value={searchQuery}

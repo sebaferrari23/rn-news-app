@@ -7,9 +7,7 @@ import {
 } from 'react-native';
 import { News } from '../types/news.types';
 import { NewsCard } from './NewsCard';
-import { colors } from '@/core/theme/colors';
-import { fontFamilies, fontSizes } from '@/core/theme/typography';
-import { spacing } from '@/core/theme/spacing';
+import { colors, spacing, fontFamilies, fontSizes } from '@/core/theme';
 
 interface Props {
   data: News[] | undefined;

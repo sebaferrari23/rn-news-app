@@ -12,9 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackScreenProps } from '@/navigation/types';
 import { rootStackRouteNames } from '@/navigation/routeNames';
 import { Header, HeaderAction } from '@/core/components/Header';
-import { colors } from '@/core/theme/colors';
-import { fontFamilies, fontSizes } from '@/core/theme/typography';
-import { spacing } from '@/core/theme/spacing';
+import { colors, spacing, fontFamilies, fontSizes } from '@/core/theme';
 import { useFavoritesStore } from '@/features/favorites/store/useFavoritesStore';
 import { useNewsItem } from '../hooks';
 
