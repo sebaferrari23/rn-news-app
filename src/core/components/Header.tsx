@@ -18,7 +18,12 @@ interface Props {
 
 export function Header({ title, showBackButton = false, actions = [] }: Props) {
   const navigation = useNavigation();
-  const hitSlop = { top: 10, bottom: 10, left: 10, right: 10 };
+  const hitSlop = {
+    top: spacing.md,
+    bottom: spacing.md,
+    left: spacing.md,
+    right: spacing.md,
+  };
 
   return (
     <View style={styles.container}>
